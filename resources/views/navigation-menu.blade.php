@@ -5,8 +5,8 @@
   border: 3px solid #dee2e6;
 }
 </style>
-
-<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
+<!--navbar-light bg-white-->
+<nav class="navbar navbar-expand-md  border-bottom sticky-top navbar-dark bg-dark">
     <div class="container">
         <!-- Logo -->
         <a class="navbar-brand mr-4" href="/">
@@ -20,11 +20,7 @@
             <!-- Left Side Of Navbar -->
 
 
-            <ul class="navbar-nav ">
-              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-  Button with data-bs-target
-</button>
-            </ul>
+
 
 
             @can('dashboard')
@@ -55,10 +51,10 @@
 
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto align-items-baseline">
+            <ul class="navbar-nav ml-auto align-items-baseline ">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <x-jet-dropdown id="teamManagementDropdown">
+                    <x-jet-dropdown id="teamManagementDropdown" >
                         <x-slot name="trigger">
                             {{ Auth::user()->currentTeam->name }}
 

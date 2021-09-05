@@ -114,7 +114,8 @@
       </div>
     </div>
     <div class="content w-100">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      @include('navigation-menu')
+    <!--  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-xl">
           <a class="navbar-brand" href="#">Container XL</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,7 +133,7 @@
             </ul>
           </div>
         </div>
-      </nav>
+      </nav>-->
       <section class="p-3">
           <main class="container my-3">
                   {{ $slot }}
