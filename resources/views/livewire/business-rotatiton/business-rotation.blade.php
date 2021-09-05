@@ -26,13 +26,15 @@
 
     <div class="col-md-12">
       <!--SE IMPRIME LA TABLA DE CONTENIDO-->
-       @include('livewire.business-rotatiton.business-rotation-table')
+       @include('livewire.business-rotatiton.table-business-rotation')
        <!--SE IMPRIME LA TABLA DE CONTENIDO-->
     </div>
 
     <!--SE INCLUYE LOS ARCHIVOS BLADE ADICIONALES PARA MOSTRAR MODALES COMO AGREGAR, ELIMINAR, EDITAR-->
     <div class="col-md-12">
       @include('livewire.business-rotatiton.create-business-rotation')
+      @include('livewire.business-rotatiton.delete-business-rotation')
+      @include('livewire.business-rotatiton.edit-business-rotation')
     </div>
     <!--SE INCLUYE LOS ARCHIVOS BLADE ADICIONALES PARA MOSTRAR MODALES COMO AGREGAR, ELIMINAR, EDITAR-->
 
@@ -41,6 +43,16 @@
         Livewire.on('send',() => {
             removeModal("#create-business");
             setTimeout(function(){$("#message").fadeOut('slow');}, 2000);
+        })
+
+        Livewire.on('destroy',() => {
+          removeModal('#create-business');
+          setTimeout(function(){$("#message-destroy").fadeOut('slow');}, 2000);
+        })
+
+        Livewire.on('update',() => {
+          removeModal('#edit-business');
+          setTimeout(function(){$("#message-update").fadeOut('slow');}, 2000);
         })
     </script>
 

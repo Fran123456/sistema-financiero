@@ -51,6 +51,41 @@ class BusinessRotation extends Component
     }
     //metodo para guardar un registro
 
+   //metodo para obtener un registro
+    public function get($id){
+        $data = Business::find($id);
+        $this->asigned($data);
+        $this->resetValidation();
+     }
+   //metodo para obtener un registro
+
+   //metodo para eliminar un registro
+   public function destroy($id){
+     Business::destroy($id);
+     session()->flash('message-destroy', 'Se ha eliminado correctamente el giro empresarial');
+     $this->emit("destroy");
+
+   }
+   //metodo para eliminar un registro
+
+  //Metodo para editar un registro
+   public function update(){
+     $this->validate();
+     Business::where('id', $this->idBussineRotation)->update([
+       'name' => $this->name,
+     ]);
+     session()->flash('message-update', 'Se ha actualizado el giro empresarial correctamente');
+     $this->emit("update");
+   }
+  //Metodo para editar un registro
+
+  //Metodo para asignar los valores a las variables
+   private function asigned($data){
+      $this->name = $data->name;
+      $this->idBussineRotation = $data->id;
+    }
+  //Metodo para asignar los valores a las variables
+
    //Metodo para limpiar campos
     public function clean(){
       $this->idBussineRotation='';
@@ -58,4 +93,7 @@ class BusinessRotation extends Component
       $this->resetValidation();
     }
     //Metodo para limpiar campos
+
+
+
 }
