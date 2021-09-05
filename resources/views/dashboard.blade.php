@@ -1,5 +1,6 @@
 <x-app-layout>
 <div class="row">
+
   <div class="col-md-12">
 
     <div class="card" style="width: 18rem;">
@@ -13,8 +14,5 @@
 
   </div>
 </div>
-
-
-
 
 </x-app-layout>

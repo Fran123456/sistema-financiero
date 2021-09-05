@@ -1,5 +1,5 @@
-<div class="table-responsive">
-    <table class="table table-hover">
+<div class="table-responsive ">
+    <table class="table table-hover ">
         <thead class="thead-dark">
             <tr>
               <th width="30px" class="text-center">#</th>
@@ -30,6 +30,8 @@
         </tbody>
     </table>
 </div>
+
+
 
 <div class="text-center">
   {{$business->links()}}
