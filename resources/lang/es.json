@@ -1,0 +1,55 @@
+{
+  "to":"de",
+  "Showing":"Mostrando",
+  "of":"de",
+  "results":"resultados",
+  "Search":"Buscar",
+  "roles":"roles",
+  "role":"rol",
+  "Dashboard":"Inicio",
+  "Users":"Usuarios",
+  "password":"contraseña",
+  "New user":"Nuevo usuario",
+  "Update user":"Actualizar usuario",
+  "Delete user":"Eliminar usuario",
+  "manage users":"administrar usuarios",
+  "Spanish":"Español",
+  "English":"Ingles",
+  "Manage Account":"Administra tu cuenta",
+  "Profile":"Perfil",
+  "Photo":"Foto",
+  "Select A New Photo":"Selecciona una nueva foto",
+
+
+  "Log out":"Salir",
+
+
+  ":data created successfully":":data creado correctamente",
+  ":data successfully removed":":data eliminado correctamente",
+  ":data successfully updated":":data actualizado correctamente",
+  "Do you want to remove user :data from the system?":"¿Quiere eliminar al usuario :data del sistema?",
+
+  "name":"nombre",
+  "email":"correo electronico",
+  "photo":"Foto",
+
+  "Roles and permissions":"Roles y permisos",
+  "Manage roles and permissions":"Administrar roles y permisos",
+  "Not results found for :data":"No hay resultados para :data",
+  "on page :data":"en la página :data",
+  "Assigned users":"Usuarios asignados",
+  "Update role":"Actualizar rol",
+  "Role's name":"Nombre del rol",
+  "New role":"Nuevo rol",
+  "Delete role":"Eliminar rol",
+  "Do you want to remove role :data from the system?":"¿Quiere eliminar el rol :data del sistema?",
+  "Input name already exists":"El nombre ingresado ya existe",
+  "Unauthorized":"No autorizado",
+  "Permissions":"Permisos",
+  "Permission":"Permiso",
+  "Permissions for role :data":"Permisos para el rol :data",
+  "Permissions' name":"Nombre del permiso",
+  "Assigned":"Asignados",
+  "System":"Sistema"
+  
+}
