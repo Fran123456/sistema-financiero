@@ -13,6 +13,7 @@ use App\Http\Controllers\System\SystemController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\BusinessRotation\BusinessRotationController;
 use App\Providers\Dashboard;
+use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -53,8 +54,5 @@ Route::get('/lang/{language}', function ($language) {
 //Giros empresariales
 Route::middleware(['auth:sanctum', 'verified'])->get('business-rotation', [BusinessRotationController::class, 'index'])->name('bussiness-rotation-index');
 
-
-
-
-//API
-Route::middleware(['auth:sanctum', 'verified'])->get('api-consumption', [APIController::class, 'getAllInformation'])->name('getAllInformation');
+//empresa
+Route::middleware(['auth:sanctum', 'verified'])->get('companies', [CompanyController::class, 'index'])->name('company-index');

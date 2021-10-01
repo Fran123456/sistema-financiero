@@ -105,6 +105,10 @@
             <a href="{{ route('bussiness-rotation-index') }}" :active="request()->routeIs('bussiness-rotation-index')" class="list-group-item list-group-item-action bg-dark text-light pl-5">
               Giros empresariales
             </a>
+            <a href="{{ route('company-index') }}" :active="request()->routeIs('company-index')" class="list-group-item list-group-item-action bg-dark text-light pl-5">
+              Empresas
+            </a>
+
 
           </div>
 

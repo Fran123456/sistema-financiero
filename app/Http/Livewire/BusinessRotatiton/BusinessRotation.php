@@ -36,7 +36,7 @@ class BusinessRotation extends Component
 
     //Metodo mount , se debe llamar asi. usualmente se utiliza para resetear alguna variable o asignar
     public function mount(){
-
+        
     }
 
   //metodo para guardar un registro

@@ -21,7 +21,6 @@ class RoleSeeder extends Seeder
 
     //Permiso Página de inicio
     Permission::create(['name' => 'dashboard'])->syncRoles([$usuario, $admin]);
-
     //Permisos para ver,crear,editar y borrar roles
     Permission::create(['name' => 'retrieve_roles'])->syncRoles([$admin]);
     Permission::create(['name' => 'create_roles'])->syncRoles([$admin]);
@@ -31,7 +30,6 @@ class RoleSeeder extends Seeder
     //Permisos para ver y asignar permisos
     Permission::create(['name' => 'retrieve_permissions'])->syncRoles([$admin]);
     Permission::create(['name' => 'assign_permissions'])->syncRoles([$admin]);
-
 
     //Permisos usuarios
     Permission::create(['name' => 'retrieve_users'])->syncRoles([$admin]);
