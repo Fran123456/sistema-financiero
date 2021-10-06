@@ -31,7 +31,6 @@ class Company extends Component
       $this->bussinesId= Business::first()->id;
   }
 
-
   //Metodo render, se debe llamar asi y es donde se actualiza los datos de la vista.
   public function render()
   {

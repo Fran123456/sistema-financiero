@@ -15,7 +15,12 @@ class Company extends Model
     ];
 
     public function BusinessRotation()
-   {
+    {
        return $this->belongsTo(BusinessRotation::class);
-   }
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->using(CompanyUser::class);
+    }
 }

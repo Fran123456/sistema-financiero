@@ -12,6 +12,7 @@ use App\Http\Controllers\Publications\PublicationsController;
 use App\Http\Controllers\System\SystemController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\BusinessRotation\BusinessRotationController;
+use App\Http\Controllers\Catalog\CatalogController;
 use App\Providers\Dashboard;
 use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Auth;
@@ -56,3 +57,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('business-rotation', [Busin
 
 //empresa
 Route::middleware(['auth:sanctum', 'verified'])->get('companies', [CompanyController::class, 'index'])->name('company-index');
+
+//catalogo
+Route::middleware(['auth:sanctum', 'verified'])->get('catalog/{id}', [CatalogController::class, 'index'])->name('catalog-index');
+Route::middleware(['auth:sanctum', 'verified'])->get('catalog/accounts/{id}', [CatalogController::class, 'accounts'])->name('accounts-index');
