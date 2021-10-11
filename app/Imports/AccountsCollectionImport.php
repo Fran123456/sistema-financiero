@@ -22,6 +22,7 @@ class AccountsCollectionImport implements ToCollection, WithHeadingRow
   private $succesfulRow=0;
   private $catalogId=0;
   private $companyId=0;
+  private $validator=true;
 
   public function  __construct($companyId, $catalogId)
   {
@@ -32,27 +33,38 @@ class AccountsCollectionImport implements ToCollection, WithHeadingRow
 
   public function collection(Collection $collection)
   {
+    $this->validator=true;
      foreach($collection as $row){
-       ++$this->numRows;
-        //get excel
-         $account=         $row['cuenta'];
-         $name=            $row['nombre'];
-         $parent=          $row['cuenta_padre'];
-         ++$this->succesfulRow;
+       try {
+         ++$this->numRows;
+          //get excel
+           $account=         $row['cuenta'];
+           $name=            $row['nombre'];
+           $parent=          $row['cuenta_padre'];
+           ++$this->succesfulRow;
 
-           Account::Create([
-           'account'           =>$account,
-           'account_name'      => $name,
-           'parent'            => $parent,
-           'catalog_id'   =>$this->catalogId,
-           'company_id'   =>$this->companyId,
-           ]);
+             Account::Create([
+             'account'           =>$account,
+             'account_name'      => $name,
+             'parent'            => $parent,
+             'catalog_id'   =>$this->catalogId,
+             'company_id'   =>$this->companyId,
+             ]);
+       } catch (\Exception $e) {
+         $this->validator=false;
        }
+
+     }
    }
 
   public function getNumRow()
   {
          return $this->numRows;
+  }
+
+  public function getValidator()
+  {
+         return $this->validator;
   }
 
   public function getSuccesfulRow(){

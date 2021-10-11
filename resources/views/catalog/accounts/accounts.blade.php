@@ -11,6 +11,18 @@
             @else
               <div class="container">
                 <div class="row">
+
+                  <div class="">
+                    @if (session()->has('destroy'))
+                        <div class="alert alert-danger" id="destroy">
+                          {{ session('destroy') }}
+                        </div>
+                        <script type="text/javascript">
+                          setTimeout(function(){$("#destroy").fadeOut('slow');}, 2000);
+                        </script>
+                    @endif
+                  </div>
+
                   <div class="col-md-2">
                     <a class="btn btn-success" href="{{$help->url()}}docs/plantilla-cuentas-contables.xlsx"><i class="fas fa-2x fa-download"></i> Plantilla</a>
                   </div>

@@ -38,7 +38,8 @@ class CatalogController extends Controller
      $rows        = $import->getNumRow();
      $succesfull  = $import->getSuccesfulRow();
      $error       = $import->getNotFound();
-     return view('catalog.accounts.success',compact('catalog','help','rows','succesfull','error'));
+     $validator   =$import->getValidator();
+     return view('catalog.accounts.success',compact('catalog','help','rows','succesfull','error','validator'));
     }else{
       return 'error';
     }

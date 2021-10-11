@@ -41,4 +41,74 @@ class Account extends Component
         }
         return view('livewire.catalog.account.account',compact('data','search'));
     }
+
+    //Metodo para limpiar campos
+     public function clean(){
+       $this->account='';
+       $this->id_account='';
+       $this->account_name='';
+       $this->parent='';
+       $this->resetValidation();
+     }
+     //Metodo para limpiar campos
+
+     //metodo para obtener un registro
+      public function get($id){
+          $data = AccountDB::find($id);
+          $this->asigned($data);
+          $this->resetValidation();
+      }
+      //metodo para obtener un registro
+
+    //Metodo para asignar los valores a las variables
+     private function asigned($data){
+         $this->id_account = $data->id;
+         $this->account=$data->account;
+         $this->parent = $data->parent;
+         $this->account_name=$data->account_name;
+    }
+    //Metodo para asignar los valores a las variables
+
+    //metodo para eliminar un registro
+    public function destroy($id){
+      $account = AccountDB::find($id);
+      AccountDB::destroy($id);
+      $accounts=AccountDB::where('catalog_id',$account->catalog_id)->get();
+      if(count($accounts)>0){
+        session()->flash('message-destroy', 'Se ha eliminado la cuenta contable correctamente');
+        $this->emit("destroy");
+      }else{
+        session()->flash('destroy', 'Se ha eliminado la cuenta contable correctamente, ademas ha eliminado la ultima cuenta contable existente');
+        return redirect(route('accounts-index',$account->catalog_id));
+      }
+
+    }
+    //metodo para eliminar un registro
+
+
+    //metodo para guardar un registro
+      public function store(){
+         $this->validate();
+
+         if($this->parent==0)$val=1;
+         else $val=count(AccountDB::where('account', $this->parent)->get());
+
+         if($val>0){
+           AccountDB::create([
+            'account' => $this->account,
+            'account_name'=> $this->account_name,
+            'parent'=>$this->parent,
+            'catalog_id'=>$this->catalog_id,
+            'company_id'=>$this->company_id,
+           ]);
+          session()->flash('message', 'Se ha agregado al cuenta contable correctamente.');
+          $this->clean();
+          $this->emit("send");
+        }else{
+          $this->addError('parent', 'La cuenta padre ingresada no existe.');
+        }
+      }
+      //metodo para guardar un registro
+
+
 }

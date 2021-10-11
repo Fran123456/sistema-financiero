@@ -1,5 +1,6 @@
 <div>
 
+
     <!--ARCHIVO BLADE QUE MANEJA LOS MENSAJES DE AGREGADO, ELIMINADO, EDITADO-->
     <div class="col-md-12">
       @include('livewire.business-rotatiton.messages')
@@ -15,7 +16,7 @@
           <!--BARRA PARA BUSQUEDA-->
           <!--BOTON PARA AGREGAR CONTENIDO-->
           <div class="col-md-1">
-            <button type="button" wire:click="clean" class="btn btn-primary mb-2" data-toggle="modal" data-target="#create-catalog">
+            <button type="button" wire:click="clean" class="btn btn-primary mb-2" data-toggle="modal" data-target="#create">
               <i class="fas fa-plus"></i>
             </button>
           </div>
@@ -27,12 +28,13 @@
         <div class="col-md-12">
           <!--SE IMPRIME LA TABLA DE CONTENIDO-->
            @include('livewire.catalog.account.table')
+            @include('livewire.catalog.account.create')
            <!--SE IMPRIME LA TABLA DE CONTENIDO-->
         </div>
 
         <!--SE INCLUYE LOS ARCHIVOS BLADE ADICIONALES PARA MOSTRAR MODALES COMO AGREGAR, ELIMINAR, EDITAR-->
         <div class="col-md-12">
-
+          @include('livewire.catalog.account.delete')
         </div>
         <!--SE INCLUYE LOS ARCHIVOS BLADE ADICIONALES PARA MOSTRAR MODALES COMO AGREGAR, ELIMINAR, EDITAR-->
 
