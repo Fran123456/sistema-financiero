@@ -61,3 +61,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('companies', [CompanyContro
 //catalogo
 Route::middleware(['auth:sanctum', 'verified'])->get('catalog/{id}', [CatalogController::class, 'index'])->name('catalog-index');
 Route::middleware(['auth:sanctum', 'verified'])->get('catalog/accounts/{id}', [CatalogController::class, 'accounts'])->name('accounts-index');
+Route::middleware(['auth:sanctum', 'verified'])->post('catalog-accounts-upload', [CatalogController::class, 'upload'])->name('accounts-upload');

@@ -10,6 +10,6 @@ class Account extends Model
     use HasFactory;
     protected $table = 'account';
     protected $fillable = [
-        'id','account_name','parent','catalog_id','company_id',
+        'id','account','account_name','parent','catalog_id','company_id',
     ];
 }
