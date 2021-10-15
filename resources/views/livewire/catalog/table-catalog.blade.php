@@ -1,3 +1,8 @@
+<style media="screen">
+  .bgnew{
+    background-color: #f3e1be!important;
+  }
+</style>
 <div class="table-responsive ">
     <table class="table table-hover ">
         <thead class="thead-dark">
@@ -8,11 +13,14 @@
               <th width="50px" class="text-center">Cargar</th>
               <th width="40px" class="text-center"><i class="fas fa-edit"></i></th>
               <th width="40px" class="text-center"><i class="fas fa-trash"></i></th>
+              <th width="40px" class="text-center"></th>
             </tr>
         </thead>
         <tbody>
                 @foreach ($catalogs as $key => $data)
-                    <tr>
+                    <tr @if ($data->status)
+                      class="bgnew"
+                    @endif>
                        <td>{{$key+1}}</td>
                         <td >{{$data->catalog}}</td>
                         <td >{{$data->user->name}}</td>
@@ -27,6 +35,15 @@
                         <td>
                           <button wire:click="get({{$data->id}})" data-mdb-toggle="modal" data-mdb-target="#delete-catalog" type="button" class="btn btn-danger">
                         <i class="fas fa-trash"></i></button>
+                      </td>
+                      <td>
+                        @if ($data->status)
+                          <a class="btn btn-danger" href="{!! route('catalog-change', $data->id) !!}" class=""><i class="fas fa-times"></i></a>
+                        @else
+                          <a class="btn btn-success" href="{!! route('catalog-change', $data->id) !!}" class=""><i class="fas fa-check"></i></a>
+                        @endif
+
+
                       </td>
                     </tr>
                 @endforeach

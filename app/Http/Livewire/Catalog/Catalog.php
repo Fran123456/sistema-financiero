@@ -32,7 +32,7 @@ class Catalog extends Component
           $catalogs=CatalogDB::where('company_id', $this->companyId)->paginate($this->pagination_size);
       }
       else{
-        $catalogs=CatalogDB::where('company_id', $companyId)->
+        $catalogs=CatalogDB::where('company_id', $this->companyId)->
         where('company','like', '%'.$this->search.'%')->paginate($this->pagination_size);
       }
 
@@ -42,11 +42,13 @@ class Catalog extends Component
     //metodo para guardar un registro
       public function store(){
          $this->validate();
+         CatalogDB::where('company_id', $this->companyId)->update(['status'=>false]);
          CatalogDB::create([
           'catalog' => $this->catalog,
           'company_id'=> $this->companyId,
           'user_id'=>auth()->user()->id
          ]);
+
         session()->flash('message', 'Se ha agregado correctamente el catalogo, ahora puede subir las cuentas contables');
         $this->clean();
         $this->emit("send");

@@ -12,6 +12,7 @@ use App\Http\Controllers\Publications\PublicationsController;
 use App\Http\Controllers\System\SystemController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\BusinessRotation\BusinessRotationController;
+use App\Http\Controllers\Balance\BalanceController;
 use App\Http\Controllers\Catalog\CatalogController;
 use App\Providers\Dashboard;
 use App\Http\Controllers\Company\CompanyController;
@@ -59,6 +60,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('business-rotation', [Busin
 Route::middleware(['auth:sanctum', 'verified'])->get('companies', [CompanyController::class, 'index'])->name('company-index');
 
 //catalogo
+Route::middleware(['auth:sanctum', 'verified'])->get('catalog/status/{catalogId}', [CatalogController::class, 'changeStatus'])->name('catalog-change');
 Route::middleware(['auth:sanctum', 'verified'])->get('catalog/{id}', [CatalogController::class, 'index'])->name('catalog-index');
 Route::middleware(['auth:sanctum', 'verified'])->get('catalog/accounts/{id}', [CatalogController::class, 'accounts'])->name('accounts-index');
 Route::middleware(['auth:sanctum', 'verified'])->post('catalog-accounts-upload', [CatalogController::class, 'upload'])->name('accounts-upload');
+
+//balances conf
+Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/{companyId}', [BalanceController::class, 'index'])->name('balances-menu');

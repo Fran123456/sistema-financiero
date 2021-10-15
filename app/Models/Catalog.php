@@ -10,7 +10,7 @@ class Catalog extends Model
     use HasFactory;
     protected $table = 'catalog';
     protected $fillable = [
-        'id','catalog','company_id','user_id',
+        'id','catalog','company_id','user_id','status',
     ];
 
     public function user()

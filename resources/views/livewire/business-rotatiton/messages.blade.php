@@ -16,8 +16,15 @@
       {{ __(session('message-update') , ['data'=> ucfirst(__('role')) ]) }}
     </div>
 @endif
+
 @if (session()->has('permissions-update'))
     <div class="alert alert-warning" id="message-update">
       {{ __(session('permissions-update') , ['data'=> ucfirst(__('Permissions')) ]) }}
     </div>
+@endif
+
+@if (session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ session('success')  }}
+</div>
 @endif

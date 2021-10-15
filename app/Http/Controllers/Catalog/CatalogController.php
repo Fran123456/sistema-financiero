@@ -45,4 +45,14 @@ class CatalogController extends Controller
     }
   }
 
+  public function changeStatus($catalogId){
+    $catalog=Catalog::find($catalogId);
+    if($catalog->status){
+      Catalog::where('id', $catalog->id)->update(['status'=>false]);
+    }else{
+        Catalog::where('id', $catalog->id)->update(['status'=>true]);
+    }
+    return back()->with('success','Se ha modificado correctamente el estado del catalogo de cuentas');
+  }
+
 }

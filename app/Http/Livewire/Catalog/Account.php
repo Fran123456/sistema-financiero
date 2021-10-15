@@ -36,7 +36,7 @@ class Account extends Component
             $data=AccountDB::where('catalog_id', $this->catalog_id)->paginate($this->pagination_size);
         }
         else{
-          $data=AccountDB::where('catalog_id', $catalog_id)->
+          $data=AccountDB::where('catalog_id', $this->catalog_id)->
           where('account_name','like', '%'.$this->search.'%')->paginate($this->pagination_size);
         }
         return view('livewire.catalog.account.account',compact('data','search'));
