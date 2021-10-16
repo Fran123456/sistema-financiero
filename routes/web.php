@@ -67,3 +67,4 @@ Route::middleware(['auth:sanctum', 'verified'])->post('catalog-accounts-upload',
 
 //balances conf
 Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/{companyId}', [BalanceController::class, 'index'])->name('balances-menu');
+Route::middleware(['auth:sanctum', 'verified'])->get('income-statement-conf/{companyId}', [BalanceController::class, 'IncomeStatementConf'])->name('incomestatement-conf');

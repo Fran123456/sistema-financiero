@@ -20,6 +20,18 @@
 
 
   <div class="row card">
+
+
+    @if (session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ session('error')  }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    @endif
+
+
     <!--componente de usuarios-->
       <div class="card-header"> <strong>MENU Y CONFIGURACIÓN DE BALANCES PARA: {{$company->company}}</strong>  </div>
       <div class="card-body">
@@ -28,9 +40,9 @@
           <div class="col-md-4">
               <div class="card bg-primary text-white" >
                 <div class="card-body">
-                  <h5 class="card-title">Cuentas / Balance comprobacion</h5>
-                  <p class="card-text">Configuración de cuentas contables para el balance de comprobación</p>
-                  <a href="#" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                  <h5 class="card-title">Cuentas / Estado de resultado</h5>
+                  <p class="card-text">Configuración de cuentas contables para el estado de resultado</p>
+                  <a href="{!! route('incomestatement-conf', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
           </div>

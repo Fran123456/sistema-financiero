@@ -22,12 +22,12 @@ class Account extends Component
     public $catalog_id;
     public $company_id;
 
+
     protected $rules = [
       'account'=>'required',
       'account_name'=>'required',
       'parent'=>'required',
     ];
-
 
     public function render()
     {

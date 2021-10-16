@@ -57,9 +57,14 @@
       <style>
       #sidebar {
         width: 20%;
-        height: 100vh;
+       height: 100vh;
+      /*   height:100%;*/
         background: #343a40;
       }
+    /*  .d-flex {
+          display: flex!important;
+           height: 100vh;
+      }*/
     </style>
 </head>
 <body class="font-sans antialiased bg-light">
