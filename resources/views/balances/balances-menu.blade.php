@@ -6,6 +6,9 @@
 .bg-success {
     background-color: #3e8b5d!important;
 }
+.bg-red {
+    background-color: #8b4c42!important;
+}
 </style>
   <div class="row">
    <div class="col-md-12">
@@ -46,6 +49,17 @@
                 </div>
               </div>
           </div>
+
+
+            <div class="col-md-4">
+                <div class="card bg-red text-white" >
+                  <div class="card-body">
+                    <h5 class="card-title">Estados de resultado</h5>
+                    <p class="card-text">Generar estados de resultado para peridos anuales, y visualizarlos</p>
+                    <a href="{!! route('incomestatement', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+            </div>
 
           <div class="col-md-4">
               <div class="card bg-success text-white" >

@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Company;
 use App\Models\Catalog;
 use App\Models\IncomeStatementConf;
+use App\Models\Periods;
 
 class IncomeStatementConfSeeder extends Seeder
 {
@@ -26,5 +27,16 @@ class IncomeStatementConfSeeder extends Seeder
         IncomeStatementConf::create([
           "title"=>"GASTOS"
         ]);
+
+       Periods::create([
+         'year'=>2021
+       ]);
+       Periods::create([
+         'year'=>2020
+       ]);
+
+       Periods::create([
+         'year'=>2019
+       ]);
     }
 }
