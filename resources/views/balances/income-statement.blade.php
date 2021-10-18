@@ -39,98 +39,112 @@ let gastos = [];
       <div class="card-header"> <strong>ESTADOS DE RESULTADO - {{$company->company}}</strong>  </div>
       <div class="card-body">
         <div class="row">
+
+
+          @if (session()->has('error'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error')  }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @endif
+
           <div class="col-md-6">
-           <div class="row">
-             <div class="col-md-6 label-ti">
-               <label class="">Periodo</label>
-             </div>
-             <div class="col-md-6 form-group input-group-sm">
-               <select class="form-control"  name="year">
-                 @foreach ($periods as $key => $value)
-                   <option value="{{$value->id}}">{{$value->year}}</option>
-                 @endforeach
-               </select>
-             </div>
-              @foreach ($incomeConf  as $key => $data)
-                <div class="col-md-8">
-                <p style="margin-bottom:-15px;margin-top:10px;"> <strong>{{$data->title}}</strong> </p>
-                </div>
-                <div class="col-md-4 text-right">
-                  <p id="total{{$data->id}}" style="margin-bottom:-15px;margin-top:10px;">0.00</p>
-                </div>
-                <div class="col-md-12">
-                  <hr>
-                </div>
-                @foreach ($data->getIncomentStatementConfByCompany($company->id,$data->id, $catalog->id) as $key => $d)
-                 <div class="col-md-6 form-group input-group-sm">
-                   <small>{{$d->title}}</small>
-                 </div>
-                 <div class="col-md-6 form-group input-group-sm">
-                   <input type="number" id="inp{{$data->id}}-{{$d->id}}" name="inp{{$data->id}}-{{$d->id}}" value="0" class="form-control class{{$data->id}}">
-                 </div>
+           <form class="" action="{!! route('incomestatement-save') !!}" method="get">
+             <input type="hidden" name="company_id" value="{{$company->id}}">
+             <input type="hidden" name="catalog_id" value="{{$catalog->id}}">
+             <div class="row">
+               <div class="col-md-6 label-ti">
+                 <label class="">Periodo</label>
+               </div>
+               <div class="col-md-6 form-group input-group-sm">
+                 <select class="form-control"  name="year">
+                   @foreach ($periods as $key => $value)
+                     <option value="{{$value->id}}">{{$value->year}}</option>
+                   @endforeach
+                 </select>
+               </div>
+                @foreach ($incomeConf  as $key => $data)
+                  <div class="col-md-8">
+                  <p style="margin-bottom:-15px;margin-top:10px;"> <strong>{{$data->title}}</strong> </p>
+                  </div>
+                  <div class="col-md-4 text-right">
+                    <p id="total{{$data->id}}" style="margin-bottom:-15px;margin-top:10px;">0.00</p>
+                    <input type="hidden" step="0.01"  id="title-total{{$data->id}}"  name="title-total{{$data->id}}" value="0">
+                  </div>
+                  <div class="col-md-12">
+                    <hr>
+                  </div>
+                  @foreach ($data->getIncomentStatementConfByCompany($company->id,$data->id, $catalog->id) as $key => $d)
+                   <div class="col-md-6 form-group input-group-sm">
+                     <small>{{$d->title}}</small>
+                   </div>
+                   <div class="col-md-6 form-group input-group-sm">
+                     <input type="number" step="0.01" id="inp{{$data->id}}-{{$d->id}}" name="inp{{$data->id}}-{{$d->id}}" value="0" class="form-control class{{$data->id}}">
+                     <input type="hidden"  name="val{{$data->id}}-{{$d->id}}" value="{{$d->account_id}}">
+                   </div>
 
-                <script type="text/javascript">
-                  if({{$data->id}}==1){
-                    ventas.push({{$d->id}});
-                  }
-                  if({{$data->id}}==2){
-                    costos.push({{$d->id}});
-                  }
-                  if({{$data->id}}==3){
-                    gastos.push({{$d->id}});
-                  }
-                </script>
+                  <script type="text/javascript">
+                    if({{$data->id}}==1){
+                      ventas.push({{$d->id}});
+                    }
+                    if({{$data->id}}==2){
+                      costos.push({{$d->id}});
+                    }
+                    if({{$data->id}}==3){
+                      gastos.push({{$d->id}});
+                    }
+                  </script>
 
+                  @endforeach
+
+                  <!--intermediarios-->
+                  @if ($data->id==2)
+                    <div class="col-md-6 form-group input-group-sm">
+                      <small>  <strong>UTILIDAD BRUTA</strong> </small>
+                    </div>
+                    <div class="col-md-6 form-group input-group-sm">
+                      <input step="0.01" name="utilidadBruta" id="utilidadBruta" type="number" readonly value="0" class="form-control">
+                    </div>
+                  @endif
+
+
+                  <br><br>
                 @endforeach
 
-                <!--intermediarios-->
-                @if ($data->id==2)
-                  <div class="col-md-6 form-group input-group-sm">
-                    <small>  <strong>UTILIDAD BRUTA</strong> </small>
-                  </div>
-                  <div class="col-md-6 form-group input-group-sm">
-                    <input type="number" readonly value="0" class="form-control">
-                  </div>
-                @endif
+                <hr>
+                <div class="col-md-6 form-group input-group-sm">
+                  <small> UTILIDAD ANTES DEL IMPUESTO </small>
+                </div>
+                <div class="col-md-6 form-group input-group-sm">
+                  <input step="0.01" id="antes" name="antes" type="number" readonly value="0" class="form-control">
+                </div>
 
-                @if ($data->id==3)
-                  <div class="col-md-6 form-group input-group-sm">
-                    <small>  <strong>TOTAL DE GASTOS</strong> </small>
-                  </div>
-                  <div class="col-md-6 form-group input-group-sm">
-                    <input type="number" readonly value="0" class="form-control">
-                  </div>
-                @endif
-                <br><br>
-              @endforeach
+                <div class="col-md-6 form-group input-group-sm">
+                  <small>  IMPUESTO A LA UTILIDAD </small>
+                </div>
+                <div class="col-md-6 form-group input-group-sm">
+                  <input step="0.01" id="impuesto" name="impuesto" type="number" value="0" class="form-control">
+                </div>
 
-              <hr>
-              <div class="col-md-6 form-group input-group-sm">
-                <small> UTILIDAD ANTES DEL IMPUESTO </small>
-              </div>
-              <div class="col-md-6 form-group input-group-sm">
-                <input type="number" readonly value="0" class="form-control">
-              </div>
+                <hr>
+                <div class="col-md-6 form-group input-group-sm">
+                  <small>  <strong>UTILIDAD NETA</strong> </small>
+                </div>
+                <div class="col-md-6 form-group input-group-sm">
+                  <input step="0.01" id="total" name="total" type="number" readonly value="0" class="form-control">
+                </div>
+                <div class="col-md-12 text-right form-group">
+                  <button type="submit" class="btn btn-success" name="button">GUARDAR</button>
+                </div>
+             </div>
+           </form>
 
-              <div class="col-md-6 form-group input-group-sm">
-                <small>  IMPUESTO A LA UTILIDAD </small>
-              </div>
-              <div class="col-md-6 form-group input-group-sm">
-                <input type="number" value="0" class="form-control">
-              </div>
-
-              <hr>
-              <div class="col-md-6 form-group input-group-sm">
-                <small>  <strong>UTILIDAD NETA</strong> </small>
-              </div>
-              <div class="col-md-6 form-group input-group-sm">
-                <input type="number" readonly value="0" class="form-control">
-              </div>
-
-           </div>
           </div>
+
           <div class="col-md-6">
-            ///
+
           </div>
         </div>
 
@@ -138,8 +152,30 @@ let gastos = [];
       </div>
     <!--componente de usuarios-->
 
+
     <script type="text/javascript">
-    $('.class1').change(function() {
+
+    function calculosExtra(){
+      //utilidad bruta
+      var utilidadBruta = parseFloat($("#total1").text()) - parseFloat($("#total2").text());
+      $('#utilidadBruta').val(utilidadBruta);
+
+      //utilidada antes de impuesto
+      var utilidadAntes = parseFloat($("#utilidadBruta").val()) - parseFloat($("#total3").text());
+      $('#antes').val(utilidadAntes);
+
+      //total
+      var total= parseFloat($('#antes').val()) - parseFloat($('#impuesto').val());
+      $('#total').val(total);
+    }
+
+
+    $('#impuesto').keyup(function() {
+      calculosExtra();
+    });
+
+
+    $('.class1').keyup(function() {
     	var id = this.id;
       var total=0;
       ventas.forEach(function(elemento, indice, array) {
@@ -147,10 +183,39 @@ let gastos = [];
           //console.log(elemento, indice);
       })
       $("#total1").text(total);
+      $("#title-total1").val(total);
       console.log(total);
-      //console.log(id);
-    //	$("#seleccionado").html(id)
+
+      calculosExtra();
     });
+
+    $('.class2').keyup(function() {
+      var id = this.id;
+      var total=0;
+      costos.forEach(function(elemento, indice, array) {
+         total=total+ parseFloat($("#inp2-"+elemento).val());
+          //console.log(elemento, indice);
+      })
+      $("#total2").text(total);
+      $("#title-total2").val(total);
+      console.log(total);
+
+      calculosExtra();
+    });
+
+    $('.class3').keyup(function() {
+      var id = this.id;
+      var total=0;
+      gastos.forEach(function(elemento, indice, array) {
+         total=total+ parseFloat($("#inp3-"+elemento).val());
+          //console.log(elemento, indice);
+      })
+      $("#total3").text(total);
+      $("#title-total3").val(total);
+      console.log(total);
+      calculosExtra();
+    });
+
     console.log(ventas);
     console.log(costos);
     console.log(gastos);
