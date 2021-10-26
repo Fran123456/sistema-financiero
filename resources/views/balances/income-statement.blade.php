@@ -13,6 +13,15 @@
   border: 0;
   opacity: .25;
 }
+.hrclass {
+    margin-top: 0rem;
+    margin-bottom: 0.3rem;
+}
+
+.pclass {
+    /* margin-top: 0; */
+    margin-bottom: 0.5rem;
+}
  </style>
 
 <script type="text/javascript">
@@ -145,6 +154,102 @@ let gastos = [];
 
           <div class="col-md-6">
 
+              <table class="table table-sm">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col"></th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($periods as $key => $value)
+                    @php
+                      $data =$value->incomeStatementByCompany($value->id, $company->id);
+                    @endphp
+                    @if ( count($data)> 0 )
+                      <tr>
+                        <td>ESTADOS DE RESULTADO {{$value->year}} </td>
+                        <td>
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id{{$key}}">
+                            VER
+                          </button>
+
+                          <!-- Modal -->
+                          <div class="modal fade" id="id{{$key}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">ESTADOS DE RESULTADO {{$value->year}}</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+
+                                  <div class="row">
+                                    @foreach ($data as $key => $in)
+                                      @if ($in->is_title)
+                                        <div class="col-md-12" style="margin-bottom:15px;">
+
+                                        </div>
+                                        <div class="col-md-9">
+                                          <h5><strong>{{$in->title}}</strong ></h5>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                        <strong> {{$in->data}} </strong>
+                                        </div>
+                                      @elseif ($in->is_separator)
+                                        <div class="col-md-12">
+                                          <hr class="hrclass">
+                                        </div>
+                                      @elseif(!$in->is_title && !$in->is_separator && !$in->is_total && !$in->is_sub_total)
+                                        <div class="col-md-9">
+                                          <p class="pclass">{{$in->title}} </p>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                          <span>{{$in->data}}</span>
+                                        </div>
+                                      @elseif(!$in->is_title && !$in->is_separator && $in->is_total && !$in->is_sub_total)
+                                        <div class="col-md-9">
+                                          <h6><strong>{{$in->title}} </strong></h6>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                          <span>{{$in->data}}</span>
+                                        </div>
+                                        <br>
+                                      @elseif(!$in->is_title && !$in->is_separator && !$in->is_total && $in->is_sub_total)
+                                        <div class="col-md-9">
+                                          <h6><strong>{{$in->title}} </strong></h6>
+                                        </div>
+                                        <div class="col-md-3 text-right">
+                                          <span>{{$in->data}}</span>
+                                        </div>
+                                     @elseif($in->is_title && $in->is_total )
+                                      <div class="col-md-9">
+                                        <h4><strong>{{$in->title}} </strong></h4>
+                                      </div>
+                                      <div class="col-md-3 text-right">
+                                        <span>{{$in->data}}</span>
+                                      </div>
+                                    @endif
+                                    @endforeach
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </td>
+                      </tr>
+                    @endif
+
+                  @endforeach
+                </tbody>
+              </table>
           </div>
         </div>
 

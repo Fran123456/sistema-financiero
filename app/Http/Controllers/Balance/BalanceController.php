@@ -44,6 +44,8 @@ class BalanceController extends Controller
           if(count($incomeConf)>0){
               $company=Company::find($companyId);
               $periods = Periods::all();
+
+
               return view('balances.income-statement', compact('incomeConf', 'company','periods','catalog'));
           }else{
             return back()->with('error','No hay configuración existente para realizar el
@@ -57,7 +59,8 @@ class BalanceController extends Controller
 
     public function SaveIncomeStatement(Request $request){
 
-      if(IncomeStatement::where('period_id', $request->period_id)->first()==null){
+      //validate
+      if(IncomeStatement::where('company_id', $request->company_id)->where('period_id', $request->period_id)->first()!=null){
         return back()->with('error','Ya se ha cargado un estado de resultado para el periodo seleccionado');
       }
 
@@ -85,8 +88,8 @@ class BalanceController extends Controller
         foreach ($data->getIncomentStatementConfByCompany($request->company_id,$data->id, $request->catalog_id) as $key2 => $d){
           //echo $request['inp'.$data->id.'-'.$d->id] . '<br>';
           IncomeStatement::create([
-            'title'=> $data->title,
-            'is_title'=>true,
+            'title'=> $d->title,
+            'is_title'=>false,
             'is_total'=>false,
             'is_sub_total'=>false,
             'is_separator'=>false,
@@ -116,6 +119,9 @@ class BalanceController extends Controller
           }
       }
 
+      IncomeStatement::separator($request->company_id, $request->year, $order);
+      $order++;//3....
+
       //fonales
       IncomeStatement::create([
         'title'=> "UTILIDAD ANTES DEL IMPUESTO",
@@ -143,9 +149,12 @@ class BalanceController extends Controller
       ]);
       $order++;
 
+      IncomeStatement::separator($request->company_id, $request->year, $order);
+      $order++;//3....
+
       IncomeStatement::create([
         'title'=> "UTILIDAD NETA",
-        'is_title'=>false,
+        'is_title'=>true,
         'is_total'=>true,
         'is_sub_total'=>false,
         'is_separator'=>false,
@@ -155,6 +164,8 @@ class BalanceController extends Controller
         'period_id'=> $request->year,
       ]);
       $order++;
+
+      return back()->with('error','Se ha guardado el balance correctamente');
     }
 
 }
