@@ -70,3 +70,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/{companyId}'
 Route::middleware(['auth:sanctum', 'verified'])->get('income-statement-conf/{companyId}', [BalanceController::class, 'IncomeStatementConf'])->name('incomestatement-conf');
 Route::middleware(['auth:sanctum', 'verified'])->get('income-statement/{companyId}', [BalanceController::class, 'IncomeStatement'])->name('incomestatement');
 Route::middleware(['auth:sanctum', 'verified'])->get('income-statement/income/save', [BalanceController::class, 'SaveIncomeStatement'])->name('incomestatement-save');
+//balance (general) conf
+Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet-conf/{companyId}', [BalanceController::class, 'balanceSheetConf'])->name('balanceSheet-conf');
+Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/{companyId}', [BalanceController::class, 'balanceSheet'])->name('balanceSheet');
+Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/sheet/save', [BalanceController::class, 'SaveBalanceSheet'])->name('balancesheet-save');

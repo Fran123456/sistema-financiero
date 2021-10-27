@@ -9,6 +9,7 @@ use App\Models\Catalog;
 use App\Models\Account;
 use App\Models\Periods;
 use App\Models\IncomeStatementConf;
+use App\Models\balanceSheetConf;
 use App\Models\IncomeStatement;
 
 class BalanceController extends Controller
@@ -167,5 +168,52 @@ class BalanceController extends Controller
 
       return back()->with('error','Se ha guardado el balance correctamente');
     }
+
+
+    ///BALANCE GENERAL
+    public function balanceSheetConf($companyId){
+      $catalog=Catalog::where('company_id', $companyId)->where('status', true)->first();
+      if($catalog!=null){
+        $accounts=Account::where('catalog_id', $catalog->id)->get();
+        if(count($accounts)>0){
+          //content
+          $company=Company::find($companyId);
+          return view('balances.balance-sheet-conf', compact('company'));
+          //content
+        }else{
+          return back()->with('error','Debe cargar cuentas contables al catalogo para configurar el estado de resultados');
+        }
+      }else{
+        return back()->with('error','Debe existir un catalogo activo para poder configurar el estado de resultados');
+      }
+    }
+
+    public function balanceSheet($companyId){
+      $catalog=Catalog::where('company_id', $companyId)->where('status', true)->first();
+      if($catalog!=null){
+          //validar si esta configurado
+          $incomeConf=balanceSheetConf::where('group', null)->get();
+          if(count($incomeConf)>0){
+              $company=Company::find($companyId);
+              $periods = Periods::all();
+              return view('balances.balance-sheet', compact('incomeConf', 'company','periods','catalog'));
+          }else{
+            return back()->with('error','No hay configuración existente para realizar el
+            balance general, por favor crear una configuración');
+          }
+
+      }else{
+        return back()->with('error','Debe existir un catalogo activo para poder configurar el balance general');
+      }
+    }
+
+    public function SaveBalanceSheet(){
+
+    }
+
+
+
+
+
 
 }
