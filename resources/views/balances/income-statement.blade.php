@@ -158,7 +158,8 @@ let gastos = [];
                 <thead class="thead-dark">
                   <tr>
                     <th scope="col">Titulo</th>
-                    <th scope="col"></th>
+                    <th width="50" scope="col"></th>
+                    <th width="50" scope="col"></th>
 
                   </tr>
                 </thead>
@@ -170,7 +171,10 @@ let gastos = [];
                     @if ( count($data)> 0 )
                       <tr>
                         <td>ESTADOS DE RESULTADO {{$value->year}} </td>
+
+                          <td> <a href="{!! route('incomestatement-delete', [ $value->id ,$company->id]) !!}" class="btn btn-danger">ELIMINAR</a>  </td>
                         <td>
+
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id{{$key}}">
                             VER
                           </button>

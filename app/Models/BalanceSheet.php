@@ -35,7 +35,7 @@ class BalanceSheet extends Model
 
 
    public static function separator($company_id, $year, $order){
-     IncomeStatement::create([
+     BalanceSheet::create([
        'title'=> '<hr>',
        'is_title'=>false,
        'is_total'=>false,
