@@ -66,7 +66,18 @@
                 <div class="card-body">
                   <h5 class="card-title">Cuentas / Balance general</h5>
                   <p class="card-text">Configuración de cuentas contables para el balance general</p>
-                  <a href="#" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                  <a href="{!! route('balanceSheet-conf', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+          </div>
+
+
+          <div class="col-md-4">
+              <div class="card bg-red text-white" >
+                <div class="card-body">
+                  <h5 class="card-title">Balance General</h5>
+                  <p class="card-text">Generar balances generales para peridos anuales, y visualizarlos</p>
+                  <a href="{!! route('balanceSheet', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
           </div>

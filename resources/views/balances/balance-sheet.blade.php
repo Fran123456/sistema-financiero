@@ -37,7 +37,7 @@ let gastos = [];
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="{!! route('company-index') !!}">Empresas</a></li>
          <li class="breadcrumb-item"><a href="{!! route('balances-menu', $company->id) !!}">Menu de configuración</a></li>
-         <li class="breadcrumb-item active" aria-current="page">Estados de resultado de: {{$company->company}}</li>
+         <li class="breadcrumb-item active" aria-current="page">Balance General de: {{$company->company}}</li>
        </ol>
      </nav>
    </div>
@@ -45,7 +45,7 @@ let gastos = [];
 
   <div class="row card">
     <!--componente de usuarios-->
-      <div class="card-header"> <strong>ESTADOS DE RESULTADO - {{$company->company}}</strong>  </div>
+        <div class="card-header"> <strong>BALANCE GENERAL - {{$company->company}}</strong>  </div>
       <div class="card-body">
         <div class="row">
 
@@ -60,7 +60,7 @@ let gastos = [];
           @endif
 
           <div class="col-md-6">
-           <form class="" action="{!! route('incomestatement-save') !!}" method="get">
+           <form class="" action="{!! route('balancesheet-save') !!}" method="get">
              <input type="hidden" name="company_id" value="{{$company->id}}">
              <input type="hidden" name="catalog_id" value="{{$catalog->id}}">
              <div class="row">
@@ -85,7 +85,7 @@ let gastos = [];
                   <div class="col-md-12">
                     <hr>
                   </div>
-                  @foreach ($data->getIncomentStatementConfByCompany($company->id,$data->id, $catalog->id) as $key => $d)
+                  @foreach ($data->getBalanceSheetByCompany($company->id,$data->id, $catalog->id) as $key => $d)
                    <div class="col-md-6 form-group input-group-sm">
                      <small>{{$d->title}}</small>
                    </div>
@@ -107,43 +107,17 @@ let gastos = [];
                   </script>
 
                   @endforeach
-
-                  <!--intermediarios-->
-                  @if ($data->id==2)
-                    <div class="col-md-6 form-group input-group-sm">
-                      <small>  <strong>UTILIDAD BRUTA</strong> </small>
-                    </div>
-                    <div class="col-md-6 form-group input-group-sm">
-                      <input step="0.01" name="utilidadBruta" id="utilidadBruta" type="number" readonly value="0" class="form-control">
-                    </div>
-                  @endif
-
-
                   <br><br>
                 @endforeach
-
                 <hr>
                 <div class="col-md-6 form-group input-group-sm">
-                  <small> UTILIDAD ANTES DEL IMPUESTO </small>
+                  <small> <strong>TOTAL PASIVO + PATRIMONIO</strong> </small>
                 </div>
                 <div class="col-md-6 form-group input-group-sm">
-                  <input step="0.01" id="antes" name="antes" type="number" readonly value="0" class="form-control">
+                  <input type="number" step="0.01" id="pasivopatrimonio" name="pasivopatrimonio" value="0" class="form-control">
                 </div>
 
-                <div class="col-md-6 form-group input-group-sm">
-                  <small>  IMPUESTO A LA UTILIDAD </small>
-                </div>
-                <div class="col-md-6 form-group input-group-sm">
-                  <input step="0.01" id="impuesto" name="impuesto" type="number" value="0" class="form-control">
-                </div>
 
-                <hr>
-                <div class="col-md-6 form-group input-group-sm">
-                  <small>  <strong>UTILIDAD NETA</strong> </small>
-                </div>
-                <div class="col-md-6 form-group input-group-sm">
-                  <input step="0.01" id="total" name="total" type="number" readonly value="0" class="form-control">
-                </div>
                 <div class="col-md-12 text-right form-group">
                   <button type="submit" class="btn btn-success" name="button">GUARDAR</button>
                 </div>
@@ -166,15 +140,13 @@ let gastos = [];
                 <tbody>
                   @foreach ($periods as $key => $value)
                     @php
-                      $data =$value->incomeStatementByCompany($value->id, $company->id);
+                      $data =$value->balanceSheetByCompany($value->id, $company->id);
                     @endphp
                     @if ( count($data)> 0 )
                       <tr>
-                        <td>ESTADOS DE RESULTADO {{$value->year}} </td>
-
-                          <td> <a href="{!! route('incomestatement-delete', [ $value->id ,$company->id]) !!}" class="btn btn-danger">ELIMINAR</a>  </td>
+                        <td>BALANCE GENERAL {{$value->year}} </td>
+                        <td> <a href="{!! route('balancesheet-delete', [ $value->id ,$company->id]) !!}" class="btn btn-danger">ELIMINAR</a>  </td>
                         <td>
-
                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id{{$key}}">
                             VER
                           </button>
@@ -184,7 +156,7 @@ let gastos = [];
                             <div class="modal-dialog modal-lg" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">ESTADOS DE RESULTADO {{$value->year}}</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">BALANCE GENERAL{{$value->year}}</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -264,25 +236,7 @@ let gastos = [];
 
     <script type="text/javascript">
 
-    function calculosExtra(){
-      //utilidad bruta
-      var utilidadBruta = parseFloat($("#total1").text()) - parseFloat($("#total2").text());
-      $('#utilidadBruta').val(utilidadBruta);
-
-      //utilidada antes de impuesto
-      var utilidadAntes = parseFloat($("#utilidadBruta").val()) - parseFloat($("#total3").text());
-      $('#antes').val(utilidadAntes);
-
-      //total
-      var total= parseFloat($('#antes').val()) - parseFloat($('#impuesto').val());
-      $('#total').val(total);
-    }
-
-
-    $('#impuesto').keyup(function() {
-      calculosExtra();
-    });
-
+    var totalpp=0;
 
     $('.class1').keyup(function() {
     	var id = this.id;
@@ -294,8 +248,6 @@ let gastos = [];
       $("#total1").text(total);
       $("#title-total1").val(total);
       console.log(total);
-
-      calculosExtra();
     });
 
     $('.class2').keyup(function() {
@@ -308,8 +260,8 @@ let gastos = [];
       $("#total2").text(total);
       $("#title-total2").val(total);
       console.log(total);
-
-      calculosExtra();
+      totalpp=parseFloat($("#title-total2").val()) + parseFloat($("#title-total3").val()) ;
+      $("#pasivopatrimonio").val(totalpp)
     });
 
     $('.class3').keyup(function() {
@@ -322,7 +274,8 @@ let gastos = [];
       $("#total3").text(total);
       $("#title-total3").val(total);
       console.log(total);
-      calculosExtra();
+      totalpp=parseFloat($("#title-total2").val()) + parseFloat($("#title-total3").val()) ;
+      $("#pasivopatrimonio").val(totalpp)
     });
 
     console.log(ventas);
