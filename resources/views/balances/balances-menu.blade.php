@@ -57,6 +57,8 @@
                     <h5 class="card-title">Estados de resultado</h5>
                     <p class="card-text">Generar estados de resultado para peridos anuales, y visualizarlos</p>
                     <a href="{!! route('incomestatement', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                    <br><br>
+                    <a href="{!! route('incomeAnalize', $company->id) !!}" class="btn btn-danger"><i class="fas fa-file-right"></i> Analisis H y V</a>
                   </div>
                 </div>
             </div>
@@ -78,6 +80,8 @@
                   <h5 class="card-title">Balance General</h5>
                   <p class="card-text">Generar balances generales para peridos anuales, y visualizarlos</p>
                   <a href="{!! route('balanceSheet', $company->id) !!}" class="btn btn-info"><i class="fas fa-arrow-right"></i></a>
+                  <br><br>
+                  <a href="{!! route('balanceAnalize', $company->id) !!}" class="btn btn-danger"><i class="fas fa-file-right"></i> Analisis H y V</a>
                 </div>
               </div>
           </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Catalog\CatalogController;
 use App\Providers\Dashboard;
 use App\Http\Controllers\Company\CompanyController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AnalisisHV\AnalisisHVController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,3 +77,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet-conf/{compan
 Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/{companyId}', [BalanceController::class, 'balanceSheet'])->name('balanceSheet');
 Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/sheet/save', [BalanceController::class, 'SaveBalanceSheet'])->name('balancesheet-save');
 Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/sheet/delete/{period}/{company}', [BalanceController::class, 'deleteBalanceSheet'])->name('balancesheet-delete');
+
+//Analisis V y H
+Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/balance-analize/{company}', [AnalisisHVController::class, 'balanceAnalize'])->name('balanceAnalize');
+Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/income-analize/{company}', [AnalisisHVController::class, 'incomeAnalize'])->name('incomeAnalize');
+

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Catalog;
 use App\Models\IncomeStatementConf;
 use App\Models\Periods;
+use App\Models\BalanceSheetConf;
 
 class IncomeStatementConfSeeder extends Seeder
 {
@@ -37,6 +38,18 @@ class IncomeStatementConfSeeder extends Seeder
 
        Periods::create([
          'year'=>2019
+       ]);
+
+       BalanceSheetConf::create([
+        "title"=>"ACTIVO"
+       ]);
+
+       BalanceSheetConf::create([
+        "title"=>"PASIVO"
+       ]);
+
+       BalanceSheetConf::create([
+         "title"=>"PATRIMONIO"
        ]);
     }
 }
