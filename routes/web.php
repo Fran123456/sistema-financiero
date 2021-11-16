@@ -82,3 +82,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('balance-sheet/sheet/delete
 Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/balance-analize/{company}', [AnalisisHVController::class, 'balanceAnalize'])->name('balanceAnalize');
 Route::middleware(['auth:sanctum', 'verified'])->get('balances-menu/income-analize/{company}', [AnalisisHVController::class, 'incomeAnalize'])->name('incomeAnalize');
 
+Route::middleware(['auth:sanctum', 'verified'])->post('storePeriod', [AnalisisHVController::class, 'storePeriod'])->name('storePeriod');

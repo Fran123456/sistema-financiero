@@ -45,7 +45,7 @@ class BalanceController extends Controller
           $incomeConf=IncomeStatementConf::where('group', null)->get();
           if(count($incomeConf)>0){
               $company=Company::find($companyId);
-              $periods = Periods::all();
+              $periods = Periods::orderBy('year','ASC')->get();
 
 
               return view('balances.income-statement', compact('incomeConf', 'company','periods','catalog'));
@@ -202,7 +202,7 @@ class BalanceController extends Controller
               $incomeConf=balanceSheetConf::where('group', null)->get();
               if(count($incomeConf)>0){
                   $company=Company::find($companyId);
-                  $periods = Periods::all();
+                  $periods = Periods::orderBy('year','ASC')->get();
                   return view('balances.balance-sheet', compact('incomeConf', 'company','periods','catalog'));
               }else{
                 return back()->with('error','No hay configuración existente para realizar el

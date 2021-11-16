@@ -420,7 +420,7 @@ class AnalisisHVController extends Controller
 
                     return view('AnalisisHV.incomeAnalize',compact('company', 'periods1', 'periods2','periods3', 'type', 'horizontalResults', 'yearHeader1','yearHeader2', 'yearHeader3','yearHeader4','yearHeader5','desiredYears','request','error','msj'));
                 }
-                if(($request->yearOne == 0 And $request->yearTwo == 0) Or ($request->yearOne != 0 And $request->yearTwo == 0) Or ($request->yearOne != 0 And $request->yearThree != 0) Or ($request->yearOne == 0 And $request->yearTwo != 0 And $request->yearThree == 0)){
+                if(($request->yearOne == 0 And $request->yearTwo == 0) Or ($request->yearOne != 0 And $request->yearTwo == 0) Or ($request->yearOne != 0 And $request->yearThree != 0) Or ($request->yearOne == 0 And $request->yearTwo != 0 And $request->yearThree == 0) Or ($request->yearOne == 0 And $request->yearTwo != 0 And $request->yearThree != 0)){
                     $error = 1;
                     $msj = $msj."\nDebe seleccionar por lo menos el Año 1 y Año 2 para Análisis Horizontal";
                     return view('AnalisisHV.incomeAnalize',compact('company', 'periods1', 'periods2','periods3', 'type', 'horizontalResults', 'yearHeader1','yearHeader2', 'yearHeader3','yearHeader4','yearHeader5','desiredYears','request','error','msj'));
@@ -538,5 +538,19 @@ class AnalisisHVController extends Controller
             $msj = $msj."\nDebe seleccionar un tipo de Análisis";
             return view('AnalisisHV.incomeAnalize',compact('company', 'periods1', 'periods2','periods3', 'type', 'horizontalResults', 'yearHeader1','yearHeader2', 'yearHeader3','yearHeader4','yearHeader5','desiredYears','request','error','msj'));
         }
+    }
+
+    public function storePeriod(Request $request){
+        $request->validate([
+            'year'=>'required|numeric|unique:periods,year',
+        ]);
+
+        $y = new Periods;
+
+        $y->year = e($request->year);
+
+        $y->save();
+
+        return back()->with('error','Periodo Agregado');
     }
 }

@@ -73,6 +73,11 @@ let gastos = [];
                      <option value="{{$value->id}}">{{$value->year}}</option>
                    @endforeach
                  </select>
+            
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="color:white; background-color:rgb(13, 0, 255)">
+                    Agregar Periodo
+                  </button>
+            
                </div>
                 @foreach ($incomeConf  as $key => $data)
                   <div class="col-md-8">
@@ -283,5 +288,37 @@ let gastos = [];
     console.log(gastos);
     </script>
   </div>
+
+  
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cambiar Estado de Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{route('storePeriod')}}" method="POST">
+          @csrf
+          <div class="modal-body">
+
+              <div class="mdl-dialog__content" allign ="center">
+                  <h4> Agregar Periodo  </h4>
+                  <br>
+                      
+                  <label for="year">Periodo</label>
+                  <input type="number" placeholder="Ingrese el Año" name="year" id="year">                  
+
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary" style="background-color:green;color:white" type="submit">Guardar</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 </x-app-layout>
